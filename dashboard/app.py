@@ -240,7 +240,7 @@ if page == 'Explore':
                     point_idx=point.get('point_index',point.get('pointNumber'))
                     map_label=map_data.iloc[int(point_idx)]['label']
                     if map_label in labels and map_label!=st.session_state.selected_city_label:
-                        st.session_state.selected_city_label=map_label; st.rerun()
+                        st.session_state['pending_city_label']=map_label; st.rerun()
                 except (AttributeError,IndexError,KeyError,TypeError,ValueError): pass
                 st.caption('Map points represent curated provider locations, not ground stations. Select a point to update the city.')
         else: st.info('Map needs more than one available location.')
