@@ -1,6 +1,6 @@
 # AirCast: India Air Quality Intelligence Platform
 
-A working local beta and hosted Community Cloud deployment for nationwide air-quality discovery and calibrated next-day PM2.5 forecasting. Public repository: https://github.com/mdhasim-1406/aircast. Hosted deployment: https://aircast-bo3n8baaby9zygipewbrn.streamlit.app/.
+A working local beta and hosted Community Cloud deployment for nationwide air-quality discovery and calibrated next-day PM2.5 forecasting. Public repository: https://github.com/mdhasim-1406/aircast. Hosted deployment: https://aircast-bo3nb8aaby9zrygipewbrn.streamlit.app/.
 
 ## What it does
 Search 54 curated Indian cities or dynamically geocode other Indian towns, inspect six pollutants and explicitly labelled US AQI, compare cities and view provider history/forecasts. Custom model coverage is separate: Bengaluru, Chennai, Delhi, Kolkata and Mumbai. Provider coverage does not imply trained-model coverage.
