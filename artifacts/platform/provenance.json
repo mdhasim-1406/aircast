@@ -1,0 +1,64 @@
+{
+  "dataset": "multicity_daily.parquet",
+  "date_range": {
+    "start": "2023-01-01",
+    "end": "2026-11-19"
+  },
+  "cities_requested": [
+    "chennai",
+    "delhi",
+    "mumbai",
+    "bengaluru",
+    "kolkata"
+  ],
+  "cities_succeeded": [
+    "bengaluru",
+    "chennai",
+    "delhi",
+    "kolkata",
+    "mumbai"
+  ],
+  "errors": [],
+  "row_count": 7095,
+  "columns": [
+    "city_id",
+    "date",
+    "pm25",
+    "pm10",
+    "hours",
+    "temperature_2m_mean",
+    "precipitation_sum",
+    "wind_speed_10m_max",
+    "relative_humidity_2m_mean"
+  ],
+  "sources": {
+    "pollutants": {
+      "provider": "Open-Meteo Air Quality API",
+      "endpoint": "https://air-quality-api.open-meteo.com/v1/air-quality",
+      "status": "model-derived atmospheric-composition forecasts; not ground-station measurements"
+    },
+    "weather": {
+      "provider": "Copernicus ERA5 via Open-Meteo Historical Weather API",
+      "endpoint": "https://archive-api.open-meteo.com/v1/archive",
+      "model": "era5",
+      "status": "reanalysis; estimated weather covariates"
+    }
+  },
+  "retrieved_utc": "2026-11-25T15:46:25.152545+00:00",
+  "validation": {
+    "valid": true,
+    "rows": 7095,
+    "errors": [],
+    "columns": [
+      "city_id",
+      "date",
+      "pm25",
+      "pm10",
+      "hours",
+      "temperature_2m_mean",
+      "precipitation_sum",
+      "wind_speed_10m_max",
+      "relative_humidity_2m_mean"
+    ]
+  }
+}

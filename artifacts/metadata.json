@@ -1,0 +1,37 @@
+{
+  "model_name": "ridge",
+  "version": "cd39e3fc1061",
+  "data_cutoff": "2026-11-24",
+  "forecast_date": "2026-11-25",
+  "latest_features": {
+    "pm25_lag_0": 3.9791666666666665,
+    "pm25_lag_1": 10.308333333333334,
+    "pm25_lag_2": 46.63333333333333,
+    "pm25_lag_3": 62.15416666666667,
+    "pm25_lag_7": 57.92916666666667,
+    "pm25_lag_14": 49.51666666666667,
+    "pm25_roll_mean_3": 39.69861111111111,
+    "pm25_roll_std_3": 26.60949807364809,
+    "pm25_roll_mean_7": 53.0172619047619,
+    "pm25_roll_std_7": 20.231165856781544,
+    "pm25_roll_mean_14": 44.44880952380952,
+    "pm25_roll_std_14": 19.349988227746277,
+    "day_of_week_sin": 0.7818314824680298,
+    "day_of_week_cos": 0.6234898018587336,
+    "day_of_year_sin": -0.5978291414589552,
+    "day_of_year_cos": 0.801623551065242
+  },
+  "dataset": {
+    "source": "Open-Meteo CAMS model-derived air-quality API",
+    "location": "Chennai, India",
+    "latitude": 13.0827,
+    "longitude": 80.2707,
+    "daily_rows": 1424,
+    "first_date": "2023-01-01",
+    "last_date": "2026-11-24",
+    "training_rows": 986,
+    "validation_rows": 211,
+    "test_rows": 212,
+    "sha256": "91da060f549357c4606c2420cb1374e999c9226a7d69436733f198aaa20a0b09"
+  }
+}

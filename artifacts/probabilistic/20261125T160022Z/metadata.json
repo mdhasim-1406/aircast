@@ -1,0 +1,153 @@
+{
+  "version": "20261125T160022Z",
+  "cities": [
+    "bengaluru",
+    "chennai",
+    "delhi",
+    "kolkata",
+    "mumbai"
+  ],
+  "cutoffs": {
+    "bengaluru": {
+      "train_through": "2025-05-06",
+      "validation_through": "2025-12-03",
+      "calibration_through": "2026-04-22",
+      "test_from": "2026-04-23",
+      "test_through": "2026-11-19"
+    },
+    "chennai": {
+      "train_through": "2025-05-06",
+      "validation_through": "2025-12-03",
+      "calibration_through": "2026-04-22",
+      "test_from": "2026-04-23",
+      "test_through": "2026-11-19"
+    },
+    "delhi": {
+      "train_through": "2025-05-06",
+      "validation_through": "2025-12-03",
+      "calibration_through": "2026-04-22",
+      "test_from": "2026-04-23",
+      "test_through": "2026-11-19"
+    },
+    "kolkata": {
+      "train_through": "2025-05-06",
+      "validation_through": "2025-12-03",
+      "calibration_through": "2026-04-22",
+      "test_from": "2026-04-23",
+      "test_through": "2026-11-19"
+    },
+    "mumbai": {
+      "train_through": "2025-05-06",
+      "validation_through": "2025-12-03",
+      "calibration_through": "2026-04-22",
+      "test_from": "2026-04-23",
+      "test_through": "2026-11-19"
+    }
+  },
+  "metrics": {
+    "bengaluru": {
+      "selected_point_model": "persistence",
+      "mae": 3.4964652448657194,
+      "rmse": 5.2137127432740895,
+      "r2": 0.7707129885639016,
+      "train_mae": 4.401628068091845,
+      "validation_mae": 4.002428909952607,
+      "persistence_mae": 3.4964652448657194,
+      "seasonal_naive_mae": 8.542338072669828,
+      "pinball_p10": 0.9659784892080371,
+      "pinball_p50": 1.8288094756474103,
+      "pinball_p90": 1.0968419410408363,
+      "coverage_80": 0.95260663507109,
+      "mean_interval_width": 18.459358292521774,
+      "conformal_radius": 4.314488821168879
+    },
+    "chennai": {
+      "selected_point_model": "ridge",
+      "mae": 3.6953846309655023,
+      "rmse": 5.588477942034374,
+      "r2": 0.7079254062108862,
+      "train_mae": 4.361566799223779,
+      "validation_mae": 3.743520358286979,
+      "persistence_mae": 3.875000000000001,
+      "seasonal_naive_mae": 8.908274091627172,
+      "pinball_p10": 0.9542468411430588,
+      "pinball_p50": 1.976121433113739,
+      "pinball_p90": 1.2896931196209362,
+      "coverage_80": 0.8862559241706162,
+      "mean_interval_width": 15.967803965446954,
+      "conformal_radius": 2.73082395174357
+    },
+    "delhi": {
+      "selected_point_model": "persistence",
+      "mae": 17.43509083728278,
+      "rmse": 23.774964691321653,
+      "r2": 0.5557416656622858,
+      "train_mae": 13.529869358669833,
+      "validation_mae": 11.836631121642972,
+      "persistence_mae": 17.43509083728278,
+      "seasonal_naive_mae": 34.41123617693523,
+      "pinball_p10": 3.846801030732814,
+      "pinball_p50": 9.156234413704416,
+      "pinball_p90": 4.570167459275507,
+      "coverage_80": 0.7440758293838863,
+      "mean_interval_width": 54.677358472944746,
+      "conformal_radius": 7.161157545590456
+    },
+    "kolkata": {
+      "selected_point_model": "ridge",
+      "mae": 9.145153820806932,
+      "rmse": 12.755190941447156,
+      "r2": 0.827577339480535,
+      "train_mae": 10.557304928839859,
+      "validation_mae": 8.51744307970754,
+      "persistence_mae": 9.729344391785151,
+      "seasonal_naive_mae": 21.168285939968403,
+      "pinball_p10": 2.104842231146137,
+      "pinball_p50": 4.980933528702365,
+      "pinball_p90": 2.5164203494334867,
+      "coverage_80": 0.6824644549763034,
+      "mean_interval_width": 27.27341993928421,
+      "conformal_radius": 1.2671061827580878
+    },
+    "mumbai": {
+      "selected_point_model": "persistence",
+      "mae": 4.299111374407583,
+      "rmse": 6.763181871850498,
+      "r2": 0.8999511614336402,
+      "train_mae": 7.411792359461598,
+      "validation_mae": 4.350394944707741,
+      "persistence_mae": 4.299111374407583,
+      "seasonal_naive_mae": 9.179719589257504,
+      "pinball_p10": 1.0122098516496436,
+      "pinball_p50": 2.5486190418067323,
+      "pinball_p90": 1.3204817006987404,
+      "coverage_80": 0.8341232227488151,
+      "mean_interval_width": 16.345161637709865,
+      "conformal_radius": 2.6083971427327697
+    }
+  },
+  "dataset": "/home/mohamedhasim/ml/aircast/data/multicity_daily.parquet",
+  "mlflow_run_id": "593bef2fcffc48bf922887616cb13b0d",
+  "features": [
+    "day_of_week_cos",
+    "day_of_week_sin",
+    "day_of_year_cos",
+    "day_of_year_sin",
+    "pm25_lag_0",
+    "pm25_lag_1",
+    "pm25_lag_14",
+    "pm25_lag_2",
+    "pm25_lag_3",
+    "pm25_lag_6",
+    "pm25_lag_7",
+    "pm25_roll_mean_14",
+    "pm25_roll_mean_3",
+    "pm25_roll_mean_7",
+    "pm25_roll_std_14",
+    "pm25_roll_std_3",
+    "pm25_roll_std_7"
+  ],
+  "generated_at": "2026-11-25T16:00:28.318922+00:00",
+  "model_name": "LightGBM quantile + split conformal",
+  "freshness_days": 3
+}

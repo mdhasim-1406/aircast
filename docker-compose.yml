@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      AIRCAST_ROOT: /app
+      AIRCAST_LEDGER: /var/lib/aircast/platform-ledger.json
+    volumes:
+      - ./artifacts:/app/artifacts:ro
+      - aircast-ledger:/var/lib/aircast
+    restart: unless-stopped
+volumes:
+  aircast-ledger:

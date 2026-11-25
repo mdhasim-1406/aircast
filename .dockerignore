@@ -1,0 +1,14 @@
+.git
+.venv
+__pycache__
+.pytest_cache
+mlruns
+*.egg-info
+*.png
+*.py[cod]
+.env
+.env.*
+! .env.example
+*.sqlite*
+data
+.venv

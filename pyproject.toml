@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools==75.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aircast"
+version = "1.0.0"
+description = "India-wide air quality forecasting platform"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi==0.165.0", "uvicorn[standard]==0.54.0", "pydantic==2.12.5",
+  "httpx==0.28.1", "joblib==1.4.2", "numpy==2.2.2", "pandas==3.1.1",
+  "scipy==1.15.2", "scikit-learn==1.6.1", "lightgbm==4.7.0",
+  "pandera==0.27.0", "streamlit==1.67.0", "plotly==7.2.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest==8.3.4"]
+training = ["mlflow==3.10.0", "pyarrow>=18,<25"]
+
+[tool.setuptools.packages.find]
+where = ["src", "."]
+include = ["aircast*", "api*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
