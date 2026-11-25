@@ -75,8 +75,6 @@ Current limitations: no ground-station integration, no validated weather-feature
 ## Cloud deployment
 Select this public repo, branch main and entrypoint streamlit_app.py at https://share.streamlit.io/, using Python3.12. Bundled models and Parquet remove any dependency on a laptop or local server. No secrets are required for Open-Meteo. Sign-in/account authorization is still necessary. A deployment is accepted only after the actual hosted URL and interactions are exercised.
 
-## Interview and resume
-See INTERVIEW_GUIDE.md, MODEL_CARD.md and DATASET.md. Verified capability bullets:
-- Built an India air-quality application with 54 curated locations, dynamic geocoding, six-pollutant CAMS data and explicit source/freshness tracking; verified live retrieval across ten cities.
-- Trained and evaluated five-city forecasting models on 7,095 genuine daily records using chronological holdouts, persistence baselines, LightGBM quantiles and separate conformal calibration.
-- Implemented shared Streamlit/FastAPI inference, versioned artifacts and 22 passing deterministic tests, with local desktop/mobile browser verification and honest insufficient-data monitoring.
+## Further documentation
+- [Model card](MODEL_CARD.md): forecasting scope, evaluation and limitations.
+- [Dataset documentation](DATASET.md): sources, coverage and data quality.

@@ -150,14 +150,6 @@ page = st.radio('Sections', ['Explore','Forecast','Compare Cities','Data Quality
 
 # Search results retain full location objects; state is always included in labels.
 st.markdown('<div class="eyebrow">Nationwide air quality · India</div>', unsafe_allow_html=True)
-with st.form('city_search', clear_on_submit=False):
-    query_col, action_col = st.columns([5,1])
-    query = query_col.text_input('Search city or state', placeholder='Search a city or state, e.g. Delhi or Karnataka', label_visibility='collapsed', key='city_query')
-    submitted = action_col.form_submit_button('Search', use_container_width=True)
-if submitted and providers:
-    results, err = _safe_call(providers, 'search_cities', query.strip())
-    if err: st.warning(f"Search is currently unavailable: {err}")
-    else: st.session_state['search_results'] = results or []
 search_results = st.session_state.get('search_results', [])
 city_pool = list(cities)
 for item in search_results:
@@ -165,9 +157,21 @@ for item in search_results:
 if city_pool:
     labels = [_city_label(c) for c in city_pool]
     preferred = next((i for i, c in enumerate(city_pool) if _city_id(c) == 'chennai'), 0)
+    if 'pending_city_label' in st.session_state:
+        st.session_state['selected_city_label'] = st.session_state.pop('pending_city_label')
     if 'selected_city_label' not in st.session_state: st.session_state['selected_city_label'] = labels[preferred]
-    selected_label = st.selectbox('Selected location', labels, key='selected_city_label', label_visibility='collapsed')
-    selected = city_pool[labels.index(selected_label)]
+    selected_label = st.selectbox('Selected location', labels, key='selected_city_label', label_visibility='collapsed', accept_new_options=True, placeholder='Search a city or state')
+    if selected_label not in labels:
+        results, err = _safe_call(providers, 'search_cities', selected_label.strip())
+        if err or not results:
+            st.warning(f"No Indian locations found for {selected_label}. {err or ''}")
+            selected = None
+        else:
+            st.session_state['search_results'] = results
+            st.session_state['pending_city_label'] = _city_label(results[0])
+            st.rerun()
+    else:
+        selected = city_pool[labels.index(selected_label)]
 else:
     selected = None
     st.info('City discovery is unavailable because the provider has not returned locations. Check the configured data source and retry.')

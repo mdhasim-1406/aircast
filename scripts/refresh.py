@@ -1,14 +1,15 @@
 """Refresh provider history for already completed forecast dates only."""
 from __future__ import annotations
 import argparse, json
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 
 
 def refresh() -> dict:
     from aircast.monitoring import forecast_dates, record_outcomes
     from aircast.providers import curated_cities, fetch_history
     updated, failures = 0, []
-    cutoff = date.today() - timedelta(days=1)
+    cutoff = datetime.now(ZoneInfo('Asia/Kolkata')).date() - timedelta(days=1)
     for city in curated_cities():
         try:
             targets = forecast_dates(city.id)

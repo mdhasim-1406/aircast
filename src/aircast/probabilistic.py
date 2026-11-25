@@ -24,6 +24,10 @@ def _ordered_quantiles(p10,p50,p90):
     values=np.sort(np.vstack([np.asarray(p10,float),np.asarray(p50,float),np.asarray(p90,float)]),axis=0)
     return values[0],values[1],values[2]
 
+def _capture_validation_predictions(candidates, choice):
+    """Freeze selected model's validation outputs before any refit."""
+    return np.asarray(candidates[choice],dtype=float).copy()
+
 def make_city_features(daily:pd.DataFrame):
     from .features import make_supervised as _make
     frame,cols=_make(daily)
@@ -79,6 +83,8 @@ def train(data_path=None, artifact_dir=None, experiment_name='aircast-probabilis
         candidates={'persistence':va.pm25_lag_0.to_numpy(),'seasonal_naive':va.pm25_lag_6.to_numpy()}
         for name,m in fitted.items(): candidates[name]=m.predict(va[cols])
         choice=min(candidates,key=lambda x:mean_absolute_error(va.pm25,candidates[x]))
+        # Preserve genuinely out-of-sample validation predictions before any refit.
+        validation_pred=_capture_validation_predictions(candidates,choice)
         base=fitted.get(choice)
         raw={q:quant[f'lightgbm_q{int(q*100)}'].predict(cal[cols]) for q in QUANTILES}
         p10,p50,p90=_ordered_quantiles(raw[.1],raw[.5],raw[.9])
@@ -98,7 +104,7 @@ def train(data_path=None, artifact_dir=None, experiment_name='aircast-probabilis
         point=point_pred(te)
         y=te.pm25.to_numpy(); mae=float(mean_absolute_error(y,point)); rmse=float(np.sqrt(mean_squared_error(y,point)))
         seasonal=te.pm25_lag_6.to_numpy(); persistence=te.pm25_lag_0.to_numpy()
-        city_metrics={'selected_point_model':choice,'mae':mae,'rmse':rmse,'r2':float(r2_score(y,point)),'train_mae':float(mean_absolute_error(tr.pm25,point_pred(tr))),'validation_mae':float(mean_absolute_error(va.pm25,point_pred(va))),'persistence_mae':float(mean_absolute_error(y,persistence)),'seasonal_naive_mae':float(mean_absolute_error(y,seasonal)),'pinball_p10':float(np.maximum(.1*(y-lo),-.9*(y-lo)).mean()),'pinball_p50':float(np.maximum(.5*(y-mid),-.5*(y-mid)).mean()),'pinball_p90':float(np.maximum(.9*(y-hi),-.1*(y-hi)).mean()),'coverage_80':float(((y>=lo)&(y<=hi)).mean()),'mean_interval_width':float(np.mean(hi-lo)),'conformal_radius':radius}
+        city_metrics={'selected_point_model':choice,'mae':mae,'rmse':rmse,'r2':float(r2_score(y,point)),'train_mae':float(mean_absolute_error(tr.pm25,point_pred(tr))),'validation_mae':float(mean_absolute_error(va.pm25,validation_pred)),'persistence_mae':float(mean_absolute_error(y,persistence)),'seasonal_naive_mae':float(mean_absolute_error(y,seasonal)),'pinball_p10':float(np.maximum(.1*(y-lo),-.9*(y-lo)).mean()),'pinball_p50':float(np.maximum(.5*(y-mid),-.5*(y-mid)).mean()),'pinball_p90':float(np.maximum(.9*(y-hi),-.1*(y-hi)).mean()),'coverage_80':float(((y>=lo)&(y<=hi)).mean()),'mean_interval_width':float(np.mean(hi-lo)),'conformal_radius':radius}
         metrics[city_id]=city_metrics
         city_models[city_id]={'features':cols,'point_name':choice,'point_model':base,'quantile_models':quant,'conformal_radius':radius,'data_cutoff':str(pd.to_datetime(g.date).max().date())}
         for rowidx,(_,r) in enumerate(te.iterrows()):
