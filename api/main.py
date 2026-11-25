@@ -31,8 +31,12 @@ def health() -> dict[str, str]:
 @app.get("/model/info")
 def model_info() -> dict[str, Any]:
     try:
-        return _inference().info()
-    except InferenceError as exc:
+        import json
+        from aircast.probabilistic import load_bundle
+        from pathlib import Path
+        bundle=load_bundle()
+        return json.loads((Path(bundle['_artifact_path'])/'metadata.json').read_text())
+    except (InferenceError, FileNotFoundError, ValueError) as exc:
         raise HTTPException(503, str(exc)) from exc
 
 @app.get("/metrics", response_model=MetricsResponse)
@@ -40,7 +44,11 @@ def metrics() -> dict[str, Any]:
     import csv, os
     from pathlib import Path
     root = Path(os.environ.get("AIRCAST_ROOT", Path(__file__).resolve().parents[1]))
-    path = root / "artifacts" / "comparison.csv"
+    from aircast.probabilistic import load_bundle
+    try:
+        path=Path(load_bundle()['_artifact_path'])/'comparison.csv'
+    except (FileNotFoundError,ValueError) as exc:
+        raise HTTPException(503,str(exc)) from exc
     if not path.is_file():
         raise HTTPException(503, f"Missing comparison artifact: {path.name}")
     with path.open(newline="", encoding="utf-8") as f:
